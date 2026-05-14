@@ -1,0 +1,39 @@
+Input:
+
+{
+	"alert_id": "SOC-54987",
+	"alert_type": "Suspicious Network Volume",
+	"indicator_type": "ip",
+	"indicator_value": "1.1.1.1",
+	"destination_host": "Internal-server",
+	"destination_ip": "192.168.x.x",  #Example IP
+	"evidence": {
+		"packet_count": 100,
+		"time_window_seconds": 40,
+		"data_source": "test.pcap"
+	},
+	"analyst_question": "Is this expected activity or suspicious scanning/noise?"
+}
+
+Output from AIRIA SOC AI Agent:
+
+{
+  "alert_id": "SOC-54987",
+  "threat_classification": "Unknown",
+  "risk_score": 0,
+  "risk_level": "Low",
+  "confidence_level": "Low",
+  "mitre_mapping": {
+    "tactic": "", 
+    "technique_id": "",
+    "technique_name": ""
+  },
+  "analysis_reasoning": "Input validation failed: required fields are missing from the alert payload. Specifically, 'source_host' and 'protocol' are not present. While evidence shows packet_count = 100 over a 40-second window (potentially elevated network volume), the absence of key fields prevents accurate threat classification or risk scoring. Current data is insufficient to map to a specific MITRE technique or to determine precise risk.", 
+  "recommended_actions": [
+    "Monitor", 
+    "Review authentication logs",  
+    "Request missing fields (source_host, protocol) for complete triage" 
+  ],
+  "escalation_required": false,
+  "executive_summary": "The alert cannot be confidently classified due to missing essential fields. There is indication of elevated network activity, but additional telemetry is needed to assess potential risk and business impact."
+}
